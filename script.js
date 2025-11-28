@@ -22,7 +22,7 @@ function validateInputs(title, url) {
     return "URL must start with http:// or https://";
   }
 
-  return null; // valid
+  return null; 
 }
 
 function updateEmptyState() {
@@ -31,4 +31,76 @@ function updateEmptyState() {
   } else {
     emptyState.style.display = "none";
   }
+}
+
+function createBookmarkElement(title, url) {
+  const item = document.createElement("div");
+  item.className = "bookmark-item";
+
+  
+  const favIndicator = document.createElement("span");
+  favIndicator.className = "favorite-indicator";
+  favIndicator.textContent = "";
+  item.appendChild(favIndicator);
+
+  
+  const header = document.createElement("div");
+  header.className = "bookmark-header";
+
+  const titleLink = document.createElement("a");
+  titleLink.className = "bookmark-title";
+  titleLink.textContent = title;
+  titleLink.href = url;
+  titleLink.target = "_blank";
+  titleLink.rel = "noopener noreferrer";
+
+  header.appendChild(titleLink);
+  item.appendChild(header);
+
+  
+  const urlText = document.createElement("div");
+  urlText.className = "bookmark-url";
+  urlText.textContent = url;
+  item.appendChild(urlText);
+
+  
+  const actions = document.createElement("div");
+  actions.className = "bookmark-actions";
+
+  const favoriteBtn = document.createElement("button");
+  favoriteBtn.type = "button";
+  favoriteBtn.className = "action-btn favorite-btn";
+  favoriteBtn.innerHTML = "☆ Favorite";
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.className = "action-btn delete-btn";
+  deleteBtn.textContent = "Delete";
+
+  actions.appendChild(favoriteBtn);
+  actions.appendChild(deleteBtn);
+  item.appendChild(actions);
+
+  
+  let isFavorite = false;
+  favoriteBtn.addEventListener("click", () => {
+    isFavorite = !isFavorite;
+    if (isFavorite) {
+      favoriteBtn.classList.add("favorite");
+      favoriteBtn.innerHTML = "★ Favorited";
+      favIndicator.textContent = "★";
+    } else {
+      favoriteBtn.classList.remove("favorite");
+      favoriteBtn.innerHTML = "☆ Favorite";
+      favIndicator.textContent = "";
+    }
+  });
+
+  
+  deleteBtn.addEventListener("click", () => {
+    item.remove();
+    updateEmptyState();
+  });
+
+  return item;
 }
