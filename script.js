@@ -104,3 +104,61 @@ function createBookmarkElement(title, url) {
 
   return item;
 }
+
+bookmarkForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const titleValue = titleInput.value;
+  const urlValue = urlInput.value;
+
+  const error = validateInputs(titleValue, urlValue);
+  if (error) {
+    errorMessage.textContent = error;
+    return;
+  }
+
+  errorMessage.textContent = "";
+  const bookmarkElement = createBookmarkElement(titleValue.trim(), urlValue.trim());
+  bookmarksContainer.prepend(bookmarkElement); 
+
+  
+  titleInput.value = "";
+  urlInput.value = "";
+  titleInput.focus();
+
+  updateEmptyState();
+});
+
+
+themeToggleBtn.addEventListener("click", () => {
+  const body = document.body;
+  if (currentTheme === "light") {
+    body.classList.remove("light-theme");
+    body.classList.add("dark-theme");
+    currentTheme = "dark";
+    themeToggleBtn.textContent = "Light Mode";
+  } else {
+    body.classList.remove("dark-theme");
+    body.classList.add("light-theme");
+    currentTheme = "light";
+    themeToggleBtn.textContent = "Dark Mode";
+  }
+});
+
+
+cardsViewBtn.addEventListener("click", () => {
+  bookmarksContainer.classList.remove("list-view");
+  bookmarksContainer.classList.add("cards-view");
+  cardsViewBtn.classList.add("active");
+  listViewBtn.classList.remove("active");
+});
+
+listViewBtn.addEventListener("click", () => {
+  bookmarksContainer.classList.remove("cards-view");
+  bookmarksContainer.classList.add("list-view");
+  listViewBtn.classList.add("active");
+  cardsViewBtn.classList.remove("active");
+});
+
+
+updateEmptyState();
