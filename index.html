@@ -6,4 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
   </head>
+  <body class="light-theme">
+    <header class="app-header">
+      <h1>Bookmark Manager</h1>
+      <div class="header-controls">
+        <button id="themeToggleBtn" type="button">Dark Mode</button>
+        <div class="view-toggle">
+          <span>View:</span>
+          <button id="cardsViewBtn" type="button" class="active">Cards</button>
+          <button id="listViewBtn" type="button">List</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="bookmark-form-section">
+        <h2>Add New Bookmark</h2>
+        <form id="bookmarkForm" novalidate>
+          <div class="form-group">
+            <label for="titleInput">Title</label>
+            <input
+              type="text"
+              id="titleInput"
+              placeholder="e.g. OpenAI"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlInput">URL</label>
+            <input
+              type="text"
+              id="urlInput"
+              placeholder="e.g. https://www.openai.com"
+              required
+            />
+          </div>
+          <button type="submit" class="primary-btn">Add Bookmark</button>
+          <p id="errorMessage" class="error-message"></p>
+        </form>
+      </section>
+
+      <section class="bookmarks-section">
+        <h2>Your Bookmarks</h2>
+        <div id="emptyState" class="empty-state">
+          No bookmarks yet. Add your first one!
+        </div>
+        <div id="bookmarksContainer" class="bookmarks-container cards-view">
+          <!-- Bookmarks will be injected here by JavaScript -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <small>Web Dev Final Project – Bookmark Manager</small>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
